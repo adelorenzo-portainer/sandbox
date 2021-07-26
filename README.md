@@ -1,4 +1,4 @@
-# sandbox setup recipe with alpine linux
+# sandbox first setup recipe with alpine linux
 
 ```
 setup-xorg-base
