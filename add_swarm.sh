@@ -1,11 +1,22 @@
-jwt=`http POST :9000/api/auth Username="portainer" Password="portainer1234" | jq '.jwt' | sed 's/^.//' | sed 's/.$//'`
-#fix_swarm=`http GET :9000/api/endpoints "Authorization: Bearer $jwt" | jq -c '.[] | {Id, Status, Name} | select(.Name == "docker swarm" and .Status == 2)' | grep -o ':.*' | cut -f2- -d: | cut -f1 -d","`
-fix_swarm=`http GET :9000/api/endpoints "Authorization: Bearer $jwt" | jq -c '.[] | {Id, Name} | select(.Name == "docker swarm")' | grep -o ':.*' | cut -f2- -d: | cut -f1 -d","`
+docker volume create swarm1-certs-ca
+docker volume create swarm1-certs-ca-client
+docker run --privileged --name swarm1 \
+--restart=always -d \
+-e DOCKER_TLS_CERTDIR=/certs \
+-v swarm1-certs-ca:/certs/ca \
+-v swarm1-certs-ca-client:/certs/client \
+docker:dind
+sleep 2
 
-http DELETE :9000/api/endpoints/$fix_swarm "Authorization: Bearer $jwt"
-
-docker exec swarm1 /usr/local/bin/docker swarm leave --force
-docker exec swarm2 /usr/local/bin/docker swarm leave --force
+docker volume create swarm2-certs-ca
+docker volume create swarm2-certs-ca-client
+docker run --privileged --name swarm2 \
+--restart=always -d \
+-e DOCKER_TLS_CERTDIR=/certs \
+-v swarm2-certs-ca:/certs/ca \
+-v swarm2-certs-ca-client:/certs/client \
+docker:dind
+sleep 2
 
 docker exec swarm1 /usr/local/bin/docker swarm init
 sleep 1
@@ -31,3 +42,4 @@ swarm_ip=`cat .swarm_ip`
 
 jwt=`http POST :9000/api/auth Username="portainer" Password="portainer1234" | jq '.jwt' | sed 's/^.//' | sed 's/.$//'`
 http --form POST :9000/api/endpoints "Authorization: Bearer $jwt" Name="docker swarm" URL="tcp://$swarm_ip:9001" EndpointCreationType=2  TLS="true" TLSSkipVerify="true" TLSSkipClientVerify="true"
+
