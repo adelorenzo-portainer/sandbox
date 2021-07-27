@@ -3,8 +3,9 @@
 ```
 setup-xorg-base
 echo 'http://dl-cdn.alpinelinux.org/alpine/latest-stable/community' >> /etc/apk/repositories
+sed -i 's/\#http/http/' /etc/apk/repositories
 apk update
-apk add curl jq httpie util-linux-misc xf86-video-vboxvideo virtualbox-guest-additions firefox ratpoison docker nano
+apk add curl jq httpie util-linux-misc xf86-video-vboxvideo virtualbox-guest-additions firefox ratpoison docker nano dialog
 add apk py3-setuptools
 echo vboxpci >> /etc/modules
 echo vboxdrv >> /etc/modules
