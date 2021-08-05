@@ -1,8 +1,8 @@
 #!/bin/ash
 
 #Install Docker endpoint
-docker exec -it standalone /sbin/ip a show eth0 | grep inet | awk '{ print $2 }' | sed 's/.\{3\}$//' > /root/.standalone_ip
-standalone_ip=`cat .standalone_ip`
+docker exec -it standalone /sbin/ip a show eth0 | grep inet | awk '{ print $2 }' | sed 's/.\{3\}$//' > /tmp/.standalone_ip
+standalone_ip=`cat /tmp/.standalone_ip`
 
 while true
 do
