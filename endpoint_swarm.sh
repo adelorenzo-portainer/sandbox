@@ -1,8 +1,8 @@
 #!/bin/ash
 
 #Install Docker Swarm endpoint
-docker exec -it swarm1 /sbin/ip a show eth0 | grep inet | awk '{ print $2 }' | sed 's/.\{3\}$//' > /root/.swarm_ip
-swarm_ip=`cat .swarm_ip`
+docker exec -it swarm1 /sbin/ip a show eth0 | grep inet | awk '{ print $2 }' | sed 's/.\{3\}$//' > /tmp/.swarm_ip
+swarm_ip=`cat /tmp/.swarm_ip`
 
 
 while true
