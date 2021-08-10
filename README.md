@@ -9,7 +9,7 @@ setup-xorg-base
 sed -i 's/\#http/http/' /etc/apk/repositories
 apk update
 apk add curl jq httpie util-linux-misc xf86-video-vboxvideo virtualbox-guest-additions firefox ratpoison docker nano dialog ttf-opensans
-add apk py3-setuptools
+apk add py3-setuptools
 add minikube kubectl docker
 echo vboxpci >> /etc/modules
 echo vboxdrv >> /etc/modules
