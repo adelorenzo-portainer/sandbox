@@ -4,7 +4,7 @@ echo ""
 echo ""
 while true
 do
-agent_state=`sudo -u portainer kubectl get pod -n portainer | awk '{ print $3 }' | tail -1`
+agent_state=`kubectl get pod -n portainer | awk '{ print $3 }' | tail -1`
 if [ "$agent_state" != "Running" ]; then
 	echo -ne '⚡ Portainer Agent Not Running yet\r'
 else
