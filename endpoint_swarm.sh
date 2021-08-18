@@ -7,7 +7,7 @@ swarm_ip=`cat /tmp/.swarm_ip`
 
 while true
 do
-sw_agent=`docker exec standalone /usr/local/bin/docker ps | grep portainer_agent`
+sw_agent=`docker exec swarm1 /usr/local/bin/docker ps | grep portainer-agent_agent`
 if [ -z "$sw_agent" ]
 then
       echo -ne '⚡ Portainer Agent Not Running yet\r'

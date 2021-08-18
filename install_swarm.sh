@@ -1,3 +1,6 @@
+#!/bin/ash
+
+(
 docker volume create swarm1-certs-ca
 docker volume create swarm1-certs-ca-client
 docker run --privileged --name swarm1 \
@@ -29,6 +32,7 @@ sleep 1
 
 chmod +x /tmp/.com
 /tmp/.com
+rm /tmp/.com
 
 docker exec swarm1 /sbin/apk add curl
 sleep 1
@@ -37,7 +41,6 @@ sleep 1
 docker exec swarm1 /usr/bin/curl -L https://downloads.portainer.io/agent-stack.yml -o /tmp/agent-stack.yml
 docker exec swarm1 /usr/local/bin/docker stack deploy --compose-file=/tmp/agent-stack.yml portainer-agent
 
-#docker exec -it swarm1 /sbin/ip a show eth0 | grep inet | awk '{ print $2 }' | sed 's/.\{3\}$//' > /root/.swarm_ip
-#swarm_ip=`cat .swarm_ip`
-#jwt=`http POST :9000/api/auth Username="portainer" Password="portainer1234" | jq '.jwt' | sed 's/^.//' | sed 's/.$//'`
-#http --form POST :9000/api/endpoints "Authorization: Bearer $jwt" Name="docker swarm" URL="tcp://$swarm_ip:9001" EndpointCreationType=2  TLS="true" TLSSkipVerify="true" TLSSkipClientVerify="true"
+/usr/local/bin/.endpoint_swarm.sh
+
+) | zenity --text "Installing Docker Swarm" --progress --auto-close --pulsate
