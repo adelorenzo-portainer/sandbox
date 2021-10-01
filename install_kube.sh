@@ -11,7 +11,6 @@ nodes:
     hostPort: 81
     listenAddress: "0.0.0.0" # Optional, defaults to "0.0.0.0"
 - role: worker
-- role: worker
 EOY
 
 #Add the metrics server to the kube cluster
