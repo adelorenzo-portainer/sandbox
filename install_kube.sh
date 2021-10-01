@@ -1,5 +1,5 @@
 #Start minikube
-kind create cluster --image kindest/node:v1.17.17 --config - <<EOY
+kind create cluster --config - <<EOY
 kind: Cluster
 apiVersion: kind.x-k8s.io/v1alpha4
 nodes:
