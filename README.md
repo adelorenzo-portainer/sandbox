@@ -18,7 +18,7 @@ service docker start
 sleep 5
 docker volume create portainer_data
 sleep 5
-docker run -d -p 8000:8000 -p 9000:9000 --name=portainer --restart=always -v portainer_data:/data portainer/portainer-ce
+docker run -d -p 8000:8000 -p 9000:9000 --name=portainer --restart=always -v portainer_data:/data portainerci/portainer:develop
 sleep 5
 http POST http://localhost:9000/api/users/admin/init Username="portainer" Password="portainer1234"
 curl -sfL https://get.k3s.io | sh -
