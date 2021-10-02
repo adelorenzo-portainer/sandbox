@@ -22,4 +22,6 @@ docker run -d -p 8000:8000 -p 9000:9000 --name=portainer --restart=always -v por
 sleep 5
 http POST http://localhost:9000/api/users/admin/init Username="portainer" Password="portainer1234"
 curl -sfL https://get.k3s.io | sh -
+mkdir -p /root/.kube
+cp /etc/rancher/k3s/k3s.yaml /root/.kube/
 ```
